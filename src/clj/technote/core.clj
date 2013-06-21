@@ -4,7 +4,7 @@
             [compojure.route :as route]
             [hiccup.core :refer [html]]
             [technote.views.default :refer [default-page four-oh-4]]
-            [technote.workorder :refer [new-workorder workorder]]
+            [technote.workorder :refer [new-workorder workorder workorder-add]]
             [technote.login :refer [login authenticate-user]]))
 
 
@@ -25,6 +25,7 @@
   ; workorder related pages
   (GET "/workorder" [] (new-workorder))
   (GET ["/workorder/:id" :id #"\d+"] [id] (workorder id))
+  (POST "/workorder-add" [& stuff] (workorder-add stuff))
 
   ; to serve static pages saved in resources/public directory
   (route/resources "/")

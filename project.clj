@@ -8,7 +8,8 @@
   :source-paths ["src/clj"]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [hiccup "1.0.3"]
-                 [compojure "1.1.5"]]
+                 [compojure "1.1.5"]
+                 [korma "0.3.0-RC5"]]
 
   ;; lein-cljsbuild plugin to build a CLJS project
   :plugins [[lein-cljsbuild "0.3.2"]
