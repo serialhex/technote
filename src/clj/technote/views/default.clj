@@ -7,8 +7,9 @@
             [:head
               [:meta {:charset "utf-8"}]
               [:title "Technote"]
+              [:link {:rel "stylesheet" :href "css/flat-ui.css"}]
               [:link {:rel "stylesheet" :href "css/styles.css"}]
-              [:link {:rel "stylesheet" :href "css/flat-ui.css"}]]
+              ]
             [:body
               (html body)]]))
 

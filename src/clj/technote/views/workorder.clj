@@ -1,6 +1,7 @@
-(ns technote.workorder
+(ns technote.views.workorder
   (:require [hiccup.core :refer [html]]
-            [technote.views.default :refer (default-page)]))
+            [technote.views.default :refer [default-page]]
+            [technote.database :refer [insert-stuff]]))
 
 (defn new-workorder []
   (default-page
@@ -11,7 +12,7 @@
         (map (fn [info]
                 [:div
                   [:label {:for info} (clojure.string/capitalize info)]
-                  [:input {:name info}]])
+                  [:input {:type "text" :name info}]])
           ["company" "name" "street" "city" "zip" "phone"])
         [:div
           [:label {:for "problems"} "Problems - wonky css... :'("
@@ -25,7 +26,7 @@
 
 (defn workorder-add [stuff]
   (default-page
-    stuff))
+    (insert-stuff stuff)))
 
 (defn workorder [id]
   (default-page

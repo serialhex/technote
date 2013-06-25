@@ -9,13 +9,15 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [hiccup "1.0.3"]
                  [compojure "1.1.5"]
-                 [korma "0.3.0-RC5"]]
+                 [com.novemberain/monger "1.5.0"]
+                 [hiccup-bootstrap "0.1.2"]]
 
   ;; lein-cljsbuild plugin to build a CLJS project
   :plugins [[lein-cljsbuild "0.3.2"]
-
-            ;; ring plugin
             [lein-ring "0.8.5"]]
+
+  :profiles { :dev
+              { :dependencies [[midje "1.5.1"]] }}
 
   :ring {:handler technote.core/handler}
 

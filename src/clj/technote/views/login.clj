@@ -1,4 +1,4 @@
-(ns technote.login
+(ns technote.views.login
   (:require [hiccup.core :refer [html]]
             [technote.views.default :refer (default-page)]))
 
@@ -11,7 +11,9 @@
 
         [:div
           [:label {:for "user"} "Tech Login"]
-          [:input#user {:name "user" :required ""}]]
+          [:input#user {:type "text"
+                        :name "user"
+                        :required ""}]]
 
         [:div
           [:label {:for "password"} "Password"]

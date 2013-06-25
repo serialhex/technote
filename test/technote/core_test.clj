@@ -1,7 +1,6 @@
 (ns technote.core-test
-  (:use clojure.test
+  (:use midje.sweet
         technote.core))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(fact "Nothing to test here, move along..."
+  (> 1 0) => truthy)

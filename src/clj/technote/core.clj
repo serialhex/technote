@@ -3,9 +3,10 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [hiccup.core :refer [html]]
+            [hiccup.bootstrap.middleware :refer [wrap-bootstrap-resources]]
             [technote.views.default :refer [default-page four-oh-4]]
-            [technote.workorder :refer [new-workorder workorder workorder-add]]
-            [technote.login :refer [login authenticate-user]]))
+            [technote.views.workorder :refer [new-workorder workorder workorder-add]]
+            [technote.views.login :refer [login authenticate-user]]))
 
 
 
@@ -33,4 +34,4 @@
   (route/not-found four-oh-4))
 
 (def handler
-  (handler/site app-routes))
+  (wrap-bootstrap-resources (handler/site app-routes)))
