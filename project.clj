@@ -18,7 +18,9 @@
             [lein-ring "0.8.5"]]
 
   :profiles { :dev
-              { :dependencies [[midje "1.5.1"]] }}
+              { :dependencies [[midje "1.5.1"]] }
+              :production
+              {}}
 
   :ring {:handler technote.core/handler}
 
