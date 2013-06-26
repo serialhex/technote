@@ -5,3 +5,6 @@
 (fact "I stick stuff in my database!!!"
   (insert-stuff {:foo "bar"}) => truthy
   (nil? (:_id (insert-stuff {:foo "bar"}))) => falsey)
+
+(fact "I validate in my database!!!"
+  )

@@ -4,9 +4,12 @@
             [compojure.route :as route]
             [hiccup.core :refer [html]]
             [hiccup.bootstrap.middleware :refer [wrap-bootstrap-resources]]
-            [technote.views.default :refer [default-page four-oh-4]]
-            [technote.views.workorder :refer [new-workorder workorder workorder-add]]
-            [technote.views.login :refer [login authenticate-user]]))
+            [technote.views.default      :refer [default-page four-oh-4]]
+            [technote.views.workorder    :refer [new-workorder
+                                                 workorder
+                                                 workorder-add
+                                                 list-workorders]]
+            [technote.views.login        :refer [login authenticate-user]]))
 
 
 
@@ -17,16 +20,19 @@
 
   ; to serve document root address
   (GET "/" [] (default-page [:div [:a {:href "/login"} "login"]]
-                            [:div [:a {:href "/workorder"} "workorder"]]))
+                            [:div [:a {:href "/workorder"} "workorder"]]
+                            [:div [:a {:href "/workorder/new"} "new workorder"]]
+                            [:div [:a {:href "/workorder/42"} "workorder number 42"]]))
 
   ; login related pages
   (GET  "/login" [] (login))
   (POST "/login" [user password] (authenticate-user user password))
 
   ; workorder related pages
-  (GET "/workorder" [] (new-workorder))
-  (GET ["/workorder/:id" :id #"\d+"] [id] (workorder id))
-  (POST "/workorder-add" [& stuff] (workorder-add stuff))
+  (GET "/workorder"                   [] (list-workorders))
+  (GET "/workorder/new"               [] (new-workorder))
+  (GET ["/workorder/:id" :id #"\d+"]  [id] (workorder id))
+  (POST "/workorder-add"              [& stuff] (workorder-add stuff))
 
   ; to serve static pages saved in resources/public directory
   (route/resources "/")
