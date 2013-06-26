@@ -10,6 +10,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [hiccup "1.0.3"]
                  [compojure "1.1.5"]
+                 [ring/ring-jetty-adapter "1.2.0-RC1"]
                  [com.novemberain/monger "1.5.0"]
                  [hiccup-bootstrap "0.1.2"]]
 

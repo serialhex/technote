@@ -3,6 +3,8 @@
 /classes
 /checkouts
 /resources/public/js/technote.js
+/.lein-*
+/.env
 pom.xml
 *.jar
 *.class

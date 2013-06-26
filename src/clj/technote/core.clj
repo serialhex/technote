@@ -1,5 +1,6 @@
 (ns technote.core
-  (:use compojure.core)
+  (:use compojure.core
+        [ring.adapter.jetty :only [run-jetty]])
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [hiccup.core :refer [html]]
@@ -41,3 +42,6 @@
 
 (def handler
   (wrap-bootstrap-resources (handler/site app-routes)))
+
+(defn -main [port]
+  (run-jetty handler {:port (Integer. port)}))
