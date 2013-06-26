@@ -6,7 +6,7 @@
 
 ; [:company :name :street :city :zip :phone :problems]
 
-(connect-via-uri! (get (System/getenv) "MONGOHQ_URL" "mongodb://localhost/tech-test"))
+(connect-via-uri! (get (System/getenv) "MONGOHQ_URL"))
 ; set default db - the test one!
 ; (set-db! (get-db "tech-test"))
 
