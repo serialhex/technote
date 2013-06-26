@@ -1,12 +1,12 @@
 (ns technote.database
-  (:require [monger.core       :as mc   :refer [connect-via-uri! set-db! get-db]]
+  (:require [monger.core       :as mc   :refer [connect set-db! get-db]]
             [monger.collection :as coll :refer [insert-and-return insert-batch]]
             [monger.query      :as q])
   (:import [org.bson.types ObjectId]))
 
 ; [:company :name :street :city :zip :phone :problems]
 
-(connect-via-uri! (get (System/getenv) "MONGOHQ_URL" ))
+(connect!)
 ; set default db - the test one!
 (set-db! (get-db "tech-test"))
 
