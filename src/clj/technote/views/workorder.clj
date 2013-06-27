@@ -1,11 +1,11 @@
 (ns technote.views.workorder
   (:require [hiccup.core :refer [html]]
             [technote.views.default :refer [default-page]]
-            [technote.database :refer [insert-stuff get-stuff]]))
+            [technote.database :refer [insert-stuff get-stuff get-workorder]]))
 
 (defn new-workorder []
   (default-page
-    [:form {:action "workorder-add"
+    [:form {:action "/workorder-add"
             :method "post"
             :id     "new-workorder-form"}
       [:fieldset
@@ -39,9 +39,21 @@
 
 (defn workorder [id]
   (default-page
-    [:div [:p "Got workorder with id: " id]]))
+    (let [wo (get-workorder id)]
+      [:div
+        [:p "Got workorder with id: " (str (:_id wo))]
+        [:p "Contents: " wo]])))
 
 (defn list-workorders []
   (default-page
     [:div
-      (get-stuff)]))
+      (map (fn [workord]
+        (let [{company  :company
+               custname :name
+               number   :_id
+               } workord]
+          [:div
+            (str custname " from " company " ")
+            [:a {:href (str "/workorder/" number)} "view"]
+            [:br]]))
+        (get-stuff))]))

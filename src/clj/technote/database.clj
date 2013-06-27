@@ -1,5 +1,5 @@
 (ns technote.database
-  (:require [monger.core       :as mc   :refer [connect set-db! get-db]]
+  (:require [monger.core       :as mc   :refer [connect! set-db! get-db]]
             [monger.collection :as coll :refer [insert-and-return insert-batch]]
             [monger.query      :as q])
   (:import [org.bson.types ObjectId]))
@@ -18,3 +18,7 @@
     (q/find {})
     (q/sort {})
     (q/paginate :page 1 :per-page 10)))
+
+(defn get-workorder [id]
+  (q/with-collection "document"
+    (q/find {:_id (ObjectId. id)})))

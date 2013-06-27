@@ -1,0 +1,36 @@
+"customer": {
+  "_id": "ObjectId",
+  "first-name": "String",
+  "last-name": "String",
+  "workorders": ["Number"],
+  "address": [
+      { "type": "String",
+        "street": "String",
+        "city:":  "String",
+        "state":  "String",
+        "zip":    "String"}
+    ]
+}
+
+"technician": {
+  "_id": "ObjectId",
+  "first-name": "String",
+  "last-name": "String",
+  "workorders": ["Number"]
+}
+
+// the meat and po-tah-toes of the whole shebang
+"workorder": {
+  "_id": "Number",
+  "customer_id": "ObjectId",
+  "receiving-technician_id": "ObjectId",
+  "date-received": "Time",
+  "equipment": "String",
+  "problems": "String",
+  "work-done": [{ "technician_id": "ObjectId",
+                  "work": "String",
+                  "timestamp": "Time",
+                  "images": "Binary",
+                  "visible": "Bool"
+                }]
+}
