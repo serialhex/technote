@@ -26,10 +26,11 @@
   (POST "/login" [user password] (authenticate-user user password))
 
   ; workorder related pages
-  (GET "/workorder"                   [] (list-workorders))
-  (GET "/workorder/new"               [] (new-workorder))
-  (GET ["/workorder/:id" :id #"\w+"]  [id] (workorder id))
-  (POST "/workorder-add"              [& stuff] (workorder-add stuff))
+  (GET "/workorder"                     [] (list-workorders))
+  (GET "/workorder/new"                 [] (new-workorder))
+  (GET ["/workorder/:id" :id #"\w+"]    [id] (workorder id))
+  (POST ["/workorder/:id" :id #"\w+"]   [id & upd] (workorder id upd))
+  (POST "/workorder-add"                [& stuff] (workorder-add stuff))
 
   ; to serve static pages saved in resources/public directory
   (route/resources "/")

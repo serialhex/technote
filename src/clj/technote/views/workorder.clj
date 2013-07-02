@@ -1,7 +1,10 @@
 (ns technote.views.workorder
   (:require [hiccup.core :refer [html]]
             [technote.views.default :refer [default-page]]
-            [technote.database :refer [insert-stuff get-stuff get-workorder]]))
+            [technote.database :refer [insert-stuff
+                                       get-stuff
+                                       get-workorder
+                                       update-workorder]]))
 
 (defn new-workorder []
   (default-page
@@ -39,7 +42,9 @@
         [:br]
         [:a {:href "/"} "home"]])))
 
-(defn workorder [id]
+(defn workorder [id & upd]
+  (if (not (nil? upd))
+    (update-workorder id upd))
   (default-page
     (let [wo (get-workorder id)
           company (str (:company wo))
@@ -47,29 +52,40 @@
           phone (:phone wo)
           problems (:problems wo)
           work-done (:work-done wo)]
-      [:div
-        [:div.panel
-          (if (not-empty company)
-            [:p "Company: " company])
-          [:p "Name: " custname]
-          [:p "Phone: " phone]]
-        [:div.panel
-          [:p "Problems: " problems]]
+      [:table
+        [:tr
+          [:td
+            [:div.panel
+              (if (not-empty company)
+                [:p "Company: " company])
+              [:p "Name: " custname]
+              [:p "Phone: " phone]]
+            [:div.panel
+              [:p "Problems: " problems]]]
 
-        [:div.work-done
-          (if (not-empty work-done)
-            [:div.work
-              [:p "work done: " work-done]])
-          [:form {:action "/#"
-                  :method "post"
-                  :id     "update-workorder"}
-            [:label {:for "work-done"} "Work Done: "]
-              [:textarea#work-done {:name "work-done"
-                                    :rows 8
-                                    :cols 80
-                                    :required ""}]
-            [:label {:for "submit"}]
-              [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]])))
+          [:td
+            [:div.work-done
+              [:form {:action (str "/workorder/" id)
+                      :method "post"
+                      :id     "update-workorder"}
+                [:label {:for "work-done"} "Work Done: "]
+                [:textarea#work-done {:name "work-done"
+                                      :rows 4
+                                      :cols 80
+                                      :required ""}]
+                [:label {:for "submit"}]
+                  [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]]]
+
+          [:tr
+            [:td]
+            [:td
+              (if (not-empty work-done)
+                (reverse
+                  (map (fn [note]
+                            [:div.work
+                              [:p "work done: " note]])
+                    work-done)))
+                  ]]])))
 
 (defn list-workorders []
   (default-page
