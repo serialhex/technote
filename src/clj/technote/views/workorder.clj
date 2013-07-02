@@ -20,11 +20,11 @@
             "zip"     {:required ""}
             "phone"   {:required ""}})
         [:div
-          [:label {:for "problems"} "Problems - wonky css... :'("
+          [:label {:for "problems"} "Problems - wonky css... :'("]
             [:textarea#problems {:name "problems"
                                  :rows 8
                                  :cols 50
-                                 :required ""}]]]
+                                 :required ""}]]
         [:div
           [:label {:for "submit"}]
           [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]]))
@@ -35,14 +35,41 @@
       [:div
         (str "Thank you " (:name data) ".  "
              "Your workorder number is: " (:_id data) ".  "
-             "We will contact you once we know anything.")])))
+             "We will contact you once we know anything.")
+        [:br]
+        [:a {:href "/"} "home"]])))
 
 (defn workorder [id]
   (default-page
-    (let [wo (get-workorder id)]
+    (let [wo (get-workorder id)
+          company (str (:company wo))
+          custname (str (:name wo))
+          phone (:phone wo)
+          problems (:problems wo)
+          work-done (:work-done wo)]
       [:div
-        [:p "Got workorder with id: " (str (:_id wo))]
-        [:p "Contents: " wo]])))
+        [:div.panel
+          (if (not-empty company)
+            [:p "Company: " company])
+          [:p "Name: " custname]
+          [:p "Phone: " phone]]
+        [:div.panel
+          [:p "Problems: " problems]]
+
+        [:div.work-done
+          (if (not-empty work-done)
+            [:div.work
+              [:p "work done: " work-done]])
+          [:form {:action "/#"
+                  :method "post"
+                  :id     "update-workorder"}
+            [:label {:for "work-done"} "Work Done: "]
+              [:textarea#work-done {:name "work-done"
+                                    :rows 8
+                                    :cols 80
+                                    :required ""}]
+            [:label {:for "submit"}]
+              [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]])))
 
 (defn list-workorders []
   (default-page
@@ -53,7 +80,9 @@
                number   :_id
                } workord]
           [:div
-            (str custname " from " company " ")
+            (str custname " "
+              (if (not-empty company)
+                (str "from " company " ")))
             [:a {:href (str "/workorder/" number)} "view"]
             [:br]]))
         (get-stuff))]))

@@ -1,0 +1,31 @@
+html {
+  background: #2980B9;
+}
+
+#main {
+  /*height:2000px;*/
+  /*width: 800px;*/
+  top: 50px;
+  /*left: 100px;*/
+  padding: 10px;
+  margin: 50px 15%;
+  background-color: #ECF0F1;
+}
+
+#sidebar {
+  background: #BDC3C7;
+  /*width: 100px;*/
+  padding: 10px;
+  /*height: 100px;*/
+  position:fixed;
+  top: 50px;
+  left: 25px;
+}
+
+ul {
+  list-style-type: circle;
+}
+
+.panel {
+
+}

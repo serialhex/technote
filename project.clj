@@ -24,7 +24,7 @@
               :production
               {}}
 
-  :ring {:handler technote.core/handler}
+  :ring {:handler technote.routes/handler}
 
   ;; cljsbuild options configuration
   :cljsbuild {:builds

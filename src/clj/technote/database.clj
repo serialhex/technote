@@ -20,5 +20,6 @@
     (q/paginate :page 1 :per-page 10)))
 
 (defn get-workorder [id]
-  (q/with-collection "document"
-    (q/find {:_id (ObjectId. id)})))
+  (first
+    (q/with-collection "document"
+      (q/find {:_id (ObjectId. id)}))))

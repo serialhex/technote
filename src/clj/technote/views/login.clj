@@ -22,7 +22,7 @@
                             :required ""}]]
         [:div
           [:label {:for "submit"}]
-          [:input#submit {:type "submit" :value "Login ->"}]]]]))
+          [:input#submit.btn.btn-primary {:type "submit" :value "Login ->"}]]]]))
 
 (defn authenticate-user [user password]
   (default-page

@@ -5,3 +5,4 @@
             [technote.database  :as db])
   (:import [org.bson.types ObjectId]))
 
+; http://docs.mongodb.org/manual/tutorial/create-an-auto-incrementing-field/

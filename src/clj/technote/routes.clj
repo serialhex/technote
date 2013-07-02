@@ -19,10 +19,7 @@
 (defroutes app-routes
 
   ; to serve document root address
-  (GET "/" [] (default-page [:div [:a {:href "/login"} "login"]]
-                            [:div [:a {:href "/workorder"} "workorder"]]
-                            [:div [:a {:href "/workorder/new"} "new workorder"]]
-                            [:div [:a {:href "/workorder/42"} "workorder number 42"]]))
+  (GET "/" [] (list-workorders))
 
   ; login related pages
   (GET  "/login" [] (login))
@@ -42,4 +39,5 @@
 (def handler
   (wrap-bootstrap-resources (handler/site app-routes)))
 
-(def server (run-jetty handler {:port 3000 :join? false}))
+; (defonce server (run-jetty handler {:port 8080 :join? false}))
+; (defn kill-server [] (.stop (run-jetty handler {:port 8080 :join? false})))
