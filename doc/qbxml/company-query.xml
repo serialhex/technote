@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="1.0"?>
+<QBXML>
+<QBXMLMsgsRq onError="stopOnError">
+<CompanyQueryRq>
+</CompanyQueryRq>
+<CompanyQueryRs statusCode="INTTYPE" statusSeverity="STRTYPE" statusMessage="STRTYPE">
+<CompanyRet> <!-- optional -->
+<CompanyName >STRTYPE</CompanyName> <!-- optional -->
+<LegalCompanyName >STRTYPE</LegalCompanyName> <!-- optional -->
+<Address> <!-- optional -->
+<Addr1 >STRTYPE</Addr1> <!-- optional -->
+<Addr2 >STRTYPE</Addr2> <!-- optional -->
+<Addr3 >STRTYPE</Addr3> <!-- optional -->
+<City >STRTYPE</City> <!-- optional -->
+<State >STRTYPE</State> <!-- optional -->
+<PostalCode >STRTYPE</PostalCode> <!-- optional -->
+<Country >STRTYPE</Country> <!-- optional -->
+</Address>
+<LegalAddress> <!-- optional -->
+<Addr1 >STRTYPE</Addr1> <!-- optional -->
+<Addr2 >STRTYPE</Addr2> <!-- optional -->
+<Addr3 >STRTYPE</Addr3> <!-- optional -->
+<City >STRTYPE</City> <!-- optional -->
+<State >STRTYPE</State> <!-- optional -->
+<PostalCode >STRTYPE</PostalCode> <!-- optional -->
+<Country >STRTYPE</Country> <!-- optional -->
+</LegalAddress>
+<CompanyAddressForCustomer> <!-- optional -->
+<Addr1 >STRTYPE</Addr1> <!-- optional -->
+<Addr2 >STRTYPE</Addr2> <!-- optional -->
+<Addr3 >STRTYPE</Addr3> <!-- optional -->
+<City >STRTYPE</City> <!-- optional -->
+<State >STRTYPE</State> <!-- optional -->
+<PostalCode >STRTYPE</PostalCode> <!-- optional -->
+<Country >STRTYPE</Country> <!-- optional -->
+</CompanyAddressForCustomer>
+<Phone >STRTYPE</Phone> <!-- optional -->
+<Fax >STRTYPE</Fax> <!-- optional -->
+<Email >STRTYPE</Email> <!-- optional -->
+<CompanyWebSite >STRTYPE</CompanyWebSite> <!-- optional -->
+<!-- FirstMonthFiscalYear may have one of the following values: January, February, March, April, May, June, July, August, September, October, November, December -->
+<FirstMonthFiscalYear >ENUMTYPE</FirstMonthFiscalYear> <!-- optional -->
+<!-- FirstMonthIncomeTaxYear may have one of the following values: January, February, March, April, May, June, July, August, September, October, November, December -->
+<FirstMonthIncomeTaxYear >ENUMTYPE</FirstMonthIncomeTaxYear> <!-- optional -->
+<CompanyType >STRTYPE</CompanyType> <!-- optional -->
+</CompanyRet>
+</CompanyQueryRs>
+</QBXMLMsgsRq>
+</QBXML>

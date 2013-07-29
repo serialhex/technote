@@ -11,8 +11,12 @@
                  [hiccup "1.0.3"]
                  [compojure "1.1.5"]
                  [ring/ring-jetty-adapter "1.2.0-RC1"]
-                 [com.novemberain/monger "1.5.0"]
+                 [korma "0.3.0-RC5"]
+                 [org.postgresql/postgresql "9.2-1002-jdbc4"]
+                 [lobos "1.0.0-beta1"]
                  [hiccup-bootstrap "0.1.2"]]
+
+  :dev-dependencies []
 
   ;; lein-cljsbuild plugin to build a CLJS project
   :plugins [[lein-cljsbuild "0.3.2"]

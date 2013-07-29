@@ -1,15 +1,12 @@
 (ns technote.database
-  (:require [monger.core       :as mc   :refer [connect! set-db! get-db]]
-            [monger.collection :as coll :refer [insert-and-return insert-batch update-by-id]]
-            [monger.query      :as q])
-  (:use monger.operators)
-  (:import [org.bson.types ObjectId]))
+  (:use [korma.db]
+        [korma.core]))
 
 ; [:company :name :street :city :zip :phone :problems]
 
-(connect!)
-; set default db - the test one!
-(set-db! (get-db "tech-test"))
+(defdb db (postgres {:db "technote-dev"
+                     :user "postgres"
+                     :password "postgres"}))
 
 (defn insert-stuff [stuff]
   (insert-and-return "document" (merge {:_id (ObjectId.)} stuff )))

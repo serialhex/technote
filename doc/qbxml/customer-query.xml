@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="1.0"?>
+<QBXML>
+<QBXMLMsgsRq onError="stopOnError">
+  <CustomerQueryRq metaData="ENUMTYPE" iterator="ENUMTYPE" iteratorID="UUIDTYPE">
+    <!-- BEGIN OR -->
+    <ListID >IDTYPE</ListID> <!-- optional, may repeat -->
+    <!-- OR -->
+    <FullName >STRTYPE</FullName> <!-- optional, may repeat -->
+    <!-- OR -->
+    <MaxReturned >INTTYPE</MaxReturned> <!-- optional -->
+    <!-- ActiveStatus may have one of the following values: ActiveOnly [DEFAULT], InactiveOnly, All -->
+    <ActiveStatus >ENUMTYPE</ActiveStatus> <!-- optional -->
+    <FromModifiedDate >DATETIMETYPE</FromModifiedDate> <!-- optional -->
+    <ToModifiedDate >DATETIMETYPE</ToModifiedDate> <!-- optional -->
+    <!-- BEGIN OR -->
+    <NameFilter> <!-- optional -->
+      <!-- MatchCriterion may have one of the following values: StartsWith, Contains, EndsWith -->
+      <MatchCriterion >ENUMTYPE</MatchCriterion> <!-- required -->
+      <Name >STRTYPE</Name> <!-- required -->
+    </NameFilter>
+    <!-- OR -->
+    <NameRangeFilter> <!-- optional -->
+      <FromName >STRTYPE</FromName> <!-- optional -->
+      <ToName >STRTYPE</ToName> <!-- optional -->
+    </NameRangeFilter>
+    <!-- END OR -->
+    <TotalBalanceFilter> <!-- optional -->
+      <!-- Operator may have one of the following values: LessThan, LessThanEqual, Equal, GreaterThan, GreaterThanEqual -->
+      <Operator >ENUMTYPE</Operator> <!-- required -->
+      <Amount >AMTTYPE</Amount> <!-- required -->
+    </TotalBalanceFilter>
+    <!-- END OR -->
+  </CustomerQueryRq>
+  <CustomerQueryRs statusCode="INTTYPE" statusSeverity="STRTYPE" statusMessage="STRTYPE" retCount="INTTYPE" iteratorRemainingCount="INTTYPE" iteratorID="UUIDTYPE">
+    <CustomerRet> <!-- optional, may repeat -->
+      <ListID >IDTYPE</ListID> <!-- required -->
+      <TimeCreated >DATETIMETYPE</TimeCreated> <!-- required -->
+      <TimeModified >DATETIMETYPE</TimeModified> <!-- required -->
+      <EditSequence >STRTYPE</EditSequence> <!-- required -->
+
+      <!-- required in db -->
+      <Name >STRTYPE</Name> <!-- required -->
+      <FullName >STRTYPE</FullName> <!-- required -->
+      <IsActive >BOOLTYPE</IsActive> <!-- optional -->
+
+      <!-- not needed -->
+      <ParentRef> <!-- optional -->
+        <ListID >IDTYPE</ListID> <!-- optional -->
+        <FullName >STRTYPE</FullName> <!-- optional -->
+      </ParentRef>
+      <Sublevel >INTTYPE</Sublevel> <!-- required -->
+
+      <!-- required in db -->
+      <CompanyName >STRTYPE</CompanyName> <!-- optional -->
+      <Salutation >STRTYPE</Salutation> <!-- optional -->
+      <FirstName >STRTYPE</FirstName> <!-- optional -->
+      <MiddleName >STRTYPE</MiddleName> <!-- optional -->
+      <LastName >STRTYPE</LastName> <!-- optional -->
+      <BillAddress> <!-- optional -->
+        <Addr1 >STRTYPE</Addr1> <!-- optional -->
+        <Addr2 >STRTYPE</Addr2> <!-- optional -->
+        <Addr3 >STRTYPE</Addr3> <!-- optional -->
+        <City >STRTYPE</City> <!-- optional -->
+        <State >STRTYPE</State> <!-- optional -->
+        <PostalCode >STRTYPE</PostalCode> <!-- optional -->
+        <Country >STRTYPE</Country> <!-- optional -->
+      </BillAddress>
+      <ShipAddress> <!-- optional -->
+        <Addr1 >STRTYPE</Addr1> <!-- optional -->
+        <Addr2 >STRTYPE</Addr2> <!-- optional -->
+        <Addr3 >STRTYPE</Addr3> <!-- optional -->
+        <City >STRTYPE</City> <!-- optional -->
+        <State >STRTYPE</State> <!-- optional -->
+        <PostalCode >STRTYPE</PostalCode> <!-- optional -->
+        <Country >STRTYPE</Country> <!-- optional -->
+      </ShipAddress>
+      <Phone >STRTYPE</Phone> <!-- optional -->
+      <AltPhone >STRTYPE</AltPhone> <!-- optional -->
+      <Fax >STRTYPE</Fax> <!-- optional -->
+      <Email >STRTYPE</Email> <!-- optional -->
+      <Contact >STRTYPE</Contact> <!-- optional -->
+      <AltContact >STRTYPE</AltContact> <!-- optional -->
+      <CustomerTypeRef> <!-- optional -->
+        <ListID >IDTYPE</ListID> <!-- optional -->
+        <FullName >STRTYPE</FullName> <!-- optional -->
+      </CustomerTypeRef>
+      <TermsRef> <!-- optional -->
+        <ListID >IDTYPE</ListID> <!-- optional -->
+        <FullName >STRTYPE</FullName> <!-- optional -->
+      </TermsRef>
+      <SalesRepRef> <!-- optional -->
+        <ListID >IDTYPE</ListID> <!-- optional -->
+        <FullName >STRTYPE</FullName> <!-- optional -->
+      </SalesRepRef>
+      <Balance >AMTTYPE</Balance> <!-- optional -->
+      <TotalBalance >AMTTYPE</TotalBalance> <!-- optional -->
+      <SalesTaxCodeRef> <!-- optional -->
+        <ListID >IDTYPE</ListID> <!-- optional -->
+        <FullName >STRTYPE</FullName> <!-- optional -->
+      </SalesTaxCodeRef>
+      <ItemSalesTaxRef> <!-- optional -->
+        <ListID >IDTYPE</ListID> <!-- optional -->
+        <FullName >STRTYPE</FullName> <!-- optional -->
+      </ItemSalesTaxRef>
+      <ResaleNumber >STRTYPE</ResaleNumber> <!-- optional -->
+      <AccountNumber >STRTYPE</AccountNumber> <!-- optional -->
+      <CreditLimit >AMTTYPE</CreditLimit> <!-- optional -->
+      <!-- JobStatus may have one of the following values: Awarded, Closed, InProgress, None [DEFAULT], NotAwarded, Pending -->
+      <JobStatus >ENUMTYPE</JobStatus> <!-- optional -->
+      <JobStartDate >DATETYPE</JobStartDate> <!-- optional -->
+      <JobProjectedEndDate >DATETYPE</JobProjectedEndDate> <!-- optional -->
+      <JobEndDate >DATETYPE</JobEndDate> <!-- optional -->
+      <JobDesc >STRTYPE</JobDesc> <!-- optional -->
+      <JobTypeRef> <!-- optional -->
+        <ListID >IDTYPE</ListID> <!-- optional -->
+        <FullName >STRTYPE</FullName> <!-- optional -->
+      </JobTypeRef>
+      <Notes >STRTYPE</Notes> <!-- optional -->
+    </CustomerRet>
+  </CustomerQueryRs>
+</QBXMLMsgsRq>
+</QBXML>
