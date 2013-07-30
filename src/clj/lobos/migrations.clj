@@ -4,28 +4,32 @@
   (:use (lobos [migration :only [defmigration]] core schema
                config helpers)))
 
-(defmigration add-users-table
+(defmigration add-customers-table
   (up [] (create
-          (tbl :users
-            (varchar :name 100 :unique)
-            (check :name (> (length :name) 1)))))
-  (down [] (drop (table :users))))
+          (tbl :customers
+            (varchar :name 209 :unique :not-null)
+            )))
+  (down [] (drop (table :customers))))
 
-(defmigration add-posts-table
+(defmigration add-techs-table
   (up [] (create
-          (tbl :posts
-            (varchar :title 200 :unique)
-            (text :content)
-            (refer-to :users))))
-  (down [] (drop (table :posts))))
+          (tbl :techs
+            (varchar :name 200 :unique :not-null)
+            (text :misc))))
+  (down [] (drop (table :techs))))
 
-(defmigration add-comments-table
+(defmigration add-workorders-table
   (up [] (create
-          (tbl :comments
+          (tbl :workorders
             (text :content)
-            (refer-to :users)
-            (refer-to :posts))))
-  (down [] (drop (table :comments))))
+            (refer-to :customers))))
+  (down [] (drop (table :workorders))))
+
+(defmigration add-technician-workorders-table
+  (up [] (create
+          (tbl :tech-workorders
+            (refer-to :techs)
+            (refer-to :workorders)))))
 
 ;; run migrations
 ; (binding [lobos.migration/*src-directory* "src/clj/"] (lobos.core/migrate))

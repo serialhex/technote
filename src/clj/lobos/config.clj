@@ -4,8 +4,8 @@
 (def db
   {:classname "org.postgresql.Driver"
    :subprotocol "postgresql"
-   :user "postgres"
-   :password "postgres"
-   :subname "//localhost:5432/spoon"})
+   :user "technote"
+   :password "technote"
+   :subname "//localhost:5432/technote-dev"})
 
-(open-global db)
+; (open-global db)
