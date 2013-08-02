@@ -8,4 +8,4 @@
    :password "technote"
    :subname "//localhost:5432/technote-dev"})
 
-; (open-global db)
+(open-global db)

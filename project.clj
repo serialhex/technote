@@ -11,6 +11,7 @@
                  [hiccup "1.0.3"]
                  [compojure "1.1.5"]
                  [ring/ring-jetty-adapter "1.2.0-RC1"]
+                 [org.clojure/data.xml "0.0.7"]
                  [korma "0.3.0-RC5"]
                  [org.postgresql/postgresql "9.2-1002-jdbc4"]
                  [lobos "1.0.0-beta1"]
@@ -24,7 +25,7 @@
 
   :profiles { :dev
               { :dependencies [[midje "1.5.1"]
-                               [org.clojure/tools.namespace "0.2.3"]] }
+                               [org.clojure/tools.namespace "0.2.4"]] }
               :production
               {}}
 

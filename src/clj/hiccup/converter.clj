@@ -1,5 +1,6 @@
-(ns hiccup-converter
-  (:use [clojure.data.xml :only (parse)])
+(ns hiccup.converter
+  (:use [clojure.data.xml :only (parse)]
+        [clojure.pprint :only (pprint)])
   (:import (java.io File)))
 ; mostly stolen from
 ; http://nakkaya.com/2009/11/23/converting-html-to-compojure-dsl/

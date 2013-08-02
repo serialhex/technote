@@ -42,9 +42,9 @@
       <!-- required in db -->
       <Name >STRTYPE</Name> <!-- required -->
       <FullName >STRTYPE</FullName> <!-- required -->
-      <IsActive >BOOLTYPE</IsActive> <!-- optional -->
 
       <!-- not needed -->
+      <IsActive >BOOLTYPE</IsActive> <!-- optional -->
       <ParentRef> <!-- optional -->
         <ListID >IDTYPE</ListID> <!-- optional -->
         <FullName >STRTYPE</FullName> <!-- optional -->

@@ -16,12 +16,12 @@
                 [:div
                   [:label {:for info} (clojure.string/capitalize info)]
                   [:input (merge {:type "text" :name info} argz)]])
-          { "company" {}
-            "name"    {:required ""}
-            "street"  {:required ""}
-            "city"    {:required ""}
-            "zip"     {:required ""}
-            "phone"   {:required ""}})
+          { "company"     {}
+            "first-name"  {:required ""}
+            "street"      {:required ""}
+            "city"        {:required ""}
+            "zip"         {:required ""}
+            "phone"       {:required ""}})
         [:div
           [:label {:for "problems"} "Problems - wonky css... :'("]
             [:textarea#problems {:name "problems"

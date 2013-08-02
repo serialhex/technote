@@ -1,10 +1,8 @@
-(ns qbclient
+(ns technote.qbclient
   (:import (java.net Socket)
            (java.io PrintWriter InputStreamReader BufferedReader)))
 ; code mostly stolen from
 ; http://nakkaya.com/2010/02/10/a-simple-clojure-irc-client/
-
-(def serv {:name "192.168.56.101" :port 3000})
 
 (declare conn-handler)
 
@@ -29,8 +27,9 @@
 (defn disconnect [conn]
   (dosync (alter conn merge {:exit true})))
 
-(def lokal (connect serv))
+; (def serv {:name "192.168.56.101" :port 3000})
+; (def lokal (connect serv))
 
 ; some test queries, the first one succeeds, the second one fails.
-(def qry1 "<?xml version=\"1.0\" encoding=\"utf-8\"?><?qbxml version=\"6.0\" ?><QBXML><QBXMLMsgsRq onError=\"stopOnError\"><CustomerQueryRq iterator=\"Start\"><MaxReturned>1</MaxReturned></CustomerQueryRq></QBXMLMsgsRq></QBXML>\n")
-(def qry2 "<?xml version=\"1.0\" encoding=\"utf-8\"?><?qbxml version=\"6.0\" ?><QBXML><QBXMLMsgsRq onError=\"stopOnError\"><CustomerQueryRq iterator=\"Start\"><FullName>llama</FullName><MaxReturned>1</MaxReturned></CustomerQueryRq></QBXMLMsgsRq></QBXML>\n")
+; (def qry1 "<?xml version=\"1.0\" encoding=\"utf-8\"?><?qbxml version=\"6.0\" ?><QBXML><QBXMLMsgsRq onError=\"stopOnError\"><CustomerQueryRq iterator=\"Start\"><MaxReturned>1</MaxReturned></CustomerQueryRq></QBXMLMsgsRq></QBXML>\n")
+; (def qry2 "<?xml version=\"1.0\" encoding=\"utf-8\"?><?qbxml version=\"6.0\" ?><QBXML><QBXMLMsgsRq onError=\"stopOnError\"><CustomerQueryRq iterator=\"Start\"><FullName>llama</FullName><MaxReturned>1</MaxReturned></CustomerQueryRq></QBXMLMsgsRq></QBXML>\n")
