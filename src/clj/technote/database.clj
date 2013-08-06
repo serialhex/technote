@@ -1,19 +1,10 @@
 (ns technote.database
-  (:use (korma core db))
-  (:require [clojure.string :as str]))
+  ; (:use (korma core db))
+  (:require [clojure.string :as str]
+            [korma [core :refer :all] [db :refer :all]]))
 
 ; some info:
 ; http://byatool.com/clojure/setting-up-sqlkorma-with-postgresql-on-windows-7/
-
-(defn insert-stuff [& stuff]
-  (println stuff))
-(defn get-stuff [& stuff]
-  (println stuff))
-(defn get-workorder [& stuff]
-  (println stuff))
-(defn update-workorder [& stuff]
-  (println stuff))
-
 
 (defdb db (postgres
             {:db "technote-dev"
