@@ -6,7 +6,9 @@
                                        get-workorder
                                        update-workorder]]))
 
-(defn new-workorder []
+(defn new-workorder
+  "Sets up new workorder."
+  []
   (default-page
     [:form {:action "/workorder-add"
             :method "post"
@@ -32,7 +34,9 @@
           [:label {:for "submit"}]
           [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]]))
 
-(defn workorder-add [stuff]
+(defn workorder-add
+  "Gets info & sends information to be inserted into the database."
+  [stuff]
   (default-page
     (let [data (insert-stuff stuff)]
       [:div
@@ -42,7 +46,9 @@
         [:br]
         [:a {:href "/"} "home"]])))
 
-(defn workorder [id & upd]
+(defn workorder
+  "Gets a specific workorder"
+  [id & upd]
   (if (not (nil? upd))
     (update-workorder id upd))
   (default-page
@@ -52,42 +58,42 @@
           phone (:phone wo)
           problems (:problems wo)
           work-done (:work-done wo)]
-      [:table
+      [:table [:tr
+        [:td
+          [:div.panel
+            (if (not-empty company)
+              [:p "Company: " company])
+            [:p "Name: " custname]
+            [:p "Phone: " phone]]
+          [:div.panel
+            [:p "Problems: " problems]]]
+        [:td
+          [:div.work-done
+            [:form {:action (str "/workorder/" id)
+                    :method "post"
+                    :id     "update-workorder"}
+              [:label {:for "work-done"} "Work Done: "]
+              [:textarea#work-done {:name "work-done"
+                                    :rows 4
+                                    :cols 80
+                                    :required ""}]
+              [:label {:for "submit"}]
+                [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]]]
+
         [:tr
+          [:td]
           [:td
-            [:div.panel
-              (if (not-empty company)
-                [:p "Company: " company])
-              [:p "Name: " custname]
-              [:p "Phone: " phone]]
-            [:div.panel
-              [:p "Problems: " problems]]]
+            (if (not-empty work-done)
+              (reverse
+                (map (fn [note]
+                          [:div.work
+                            [:p "work done: " note]])
+                  work-done)))
+                ]]])))
 
-          [:td
-            [:div.work-done
-              [:form {:action (str "/workorder/" id)
-                      :method "post"
-                      :id     "update-workorder"}
-                [:label {:for "work-done"} "Work Done: "]
-                [:textarea#work-done {:name "work-done"
-                                      :rows 4
-                                      :cols 80
-                                      :required ""}]
-                [:label {:for "submit"}]
-                  [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]]]
-
-          [:tr
-            [:td]
-            [:td
-              (if (not-empty work-done)
-                (reverse
-                  (map (fn [note]
-                            [:div.work
-                              [:p "work done: " note]])
-                    work-done)))
-                  ]]])))
-
-(defn list-workorders []
+(defn list-workorders
+  "Lists available workorders."
+  []
   (default-page
     [:div
       (map (fn [workord]
