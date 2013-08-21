@@ -1,55 +1,66 @@
 (ns technote.views.workorder
-  (:require [hiccup.core :refer [html]]
+  (:require [clojure.string :as string]
+            [hiccup.core :refer [html]]
             [technote.views.default :refer [default-page]]
-            [technote.database :refer [insert-stuff
-                                       get-stuff
-                                       get-workorder
-                                       update-workorder]]))
+            [technote.workorder :refer [new-workorder
+                                        get-stuff
+                                        get-workorder
+                                        update-workorder]]))
 
-(defn new-workorder
+(defn workorder-new
   "Sets up new workorder."
-  []
-  (default-page
-    [:form {:action "/workorder-add"
-            :method "post"
-            :id     "new-workorder-form"}
-      [:fieldset
-        (map (fn [[info argz]]
-                [:div
-                  [:label {:for info} (clojure.string/capitalize info)]
-                  [:input (merge {:type "text" :name info} argz)]])
-          { "company"     {}
-            "first-name"  {:required ""}
-            "street"      {:required ""}
-            "city"        {:required ""}
-            "zip"         {:required ""}
-            "phone"       {:required ""}})
-        [:div
-          [:label {:for "problems"} "Problems - wonky css... :'("]
-            [:textarea#problems {:name "problems"
-                                 :rows 8
-                                 :cols 50
-                                 :required ""}]]
-        [:div
-          [:label {:for "submit"}]
-          [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]]))
+  [& info]
+  (if (not (nil? info))
 
+    ;got info to post
+    (default-page
+      (let [data (new-workorder info)]
+        (println "in tk/vi/wo" data)
+        [:div
+          (str "Thank you " (:name (:cust_id data)) ".  "
+               "Your workorder number is: " (:id data) ".  "
+               "We will contact you once we know anything.")
+          [:br]
+          [:a {:href "/"} "home"]]))
+
+    ; getting info to post
+    (default-page
+      [:form {:action "/workorder/new"
+              :method "post"
+              :id     "new-workorder-form"}
+        [:fieldset
+          (map (fn [[info argz]]
+                  [:div
+                    [:label {:for info} (string/capitalize (string/replace info "-" " "))]
+                    [:input (merge {:type "text" :name info} argz)]])
+            { "company-name"  {}
+              "first-name"    {:required ""}
+              "last-name"     {:required ""}
+              "street"        {:required ""}
+              "city"          {:required ""}
+              "zip"           {:required ""}
+              "phone-number"  {:required ""}})
+          [:div
+            [:label {:for "problems"} "Problems - wonky css... :'("]
+              [:textarea#problems {:name "problems"
+                                   :rows 8
+                                   :cols 50
+                                   :required ""}]]
+          [:div
+            [:label {:for "submit"}]
+            [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]])
+  ))
+
+; refactoring...
 (defn workorder-add
   "Gets info & sends information to be inserted into the database."
   [stuff]
-  (default-page
-    (let [data (insert-stuff stuff)]
-      [:div
-        (str "Thank you " (:name data) ".  "
-             "Your workorder number is: " (:_id data) ".  "
-             "We will contact you once we know anything.")
-        [:br]
-        [:a {:href "/"} "home"]])))
+  )
 
 (defn workorder
   "Gets a specific workorder"
   [id & upd]
-  (if (not (nil? upd))
+  (if upd
     (update-workorder id upd))
   (default-page
     (let [wo (get-workorder id)
@@ -83,28 +94,35 @@
         [:tr
           [:td]
           [:td
-            (if (not-empty work-done)
+            (if work-done
               (reverse
                 (map (fn [note]
                           [:div.work
                             [:p "work done: " note]])
                   work-done)))
-                ]]])))
+                ]]]
+    [:div wo])))
 
 (defn list-workorders
   "Lists available workorders."
-  []
+  [& {:keys [offset] :or {offset 0}}]
+  (prn "in tk/vi/lw " offset)
   (default-page
     [:div
       (map (fn [workord]
         (let [{company  :company
-               custname :name
-               number   :_id
-               } workord]
+               custname :cust-name
+               number   :id}
+               workord]
           [:div
-            (str custname " "
+            (str "cust: " custname " "
               (if (not-empty company)
-                (str "from " company " ")))
+                (str "from " company " "))
+              "workorder number: " number " ")
             [:a {:href (str "/workorder/" number)} "view"]
             [:br]]))
-        (get-stuff))]))
+        (get-stuff (if offset (Integer. offset) 0)))]
+      [:div
+        [:a {:href (str "/workorder?offset=" (+ 3 (if offset (Integer. offset) 0)))}
+              "get next"]
+        ]))

@@ -1,29 +1,32 @@
-;;  this is all probably getting nixed here in a few moments...
-
-
 (ns technote.workorder
-  ; (:require [monger.core        :as mc]
-  ;           [monger.collection  :as coll]
-  ;           [monger.query       :as q]
-  ;           [technote.database  :as db])
-  ; (:import [org.bson.types ObjectId])
-  )
+  (:require [technote.database :as db]
+            [technote.misc :as misc]
+            [technote.customer :as cust]
+            [korma.core :refer :all]))
 
-; http://docs.mongodb.org/manual/tutorial/create-an-auto-incrementing-field/
 
-; (defn insert-stuff [stuff]
-;   (insert-and-return "document" (merge {:_id (ObjectId.)} stuff )))
+(defn new-workorder [input]
+  (let [data (first input)]
+    (let [cust-id
+          (cust/new-customer data)]
+      (insert db/workorders
+        (values { :customer_id cust-id
+                  :problem (:problems data)})))))
 
-; (defn get-stuff []
-;   (q/with-collection "document"
-;     (q/find {})
-;     (q/sort {})
-;     (q/paginate :page 1 :per-page 10)))
 
-; (defn get-workorder [id]
-;   (first
-;     (q/with-collection "document"
-;       (q/find {:_id (ObjectId. id)}))))
 
-; (defn update-workorder [id upd]
-;   (update-by-id "document" (ObjectId. id) {$push (first upd)} :upsert true))
+(defn get-stuff [num-off]
+  (select db/workorders
+    (with db/customers)
+    (limit 3)
+    (offset num-off)))
+
+
+(defn get-workorder [id]
+  (select db/workorders
+    (with db/work-performed)
+    (with db/customers)
+    (where {:id (Integer. id)})))
+
+(defn update-workorder [stuff]
+  (println stuff))

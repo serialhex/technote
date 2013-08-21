@@ -10,10 +10,13 @@
 (defn app-start []
   (.start server))
 
+(defn app-stop []
+  (.stop server))
+
 (defn app-reset []
   (do
     (println "\nstopping server")
-    (.stop server)
+    (app-stop)
     (println "\nrefreshing")
     (refresh :after 'technote.core/app-start)))
 

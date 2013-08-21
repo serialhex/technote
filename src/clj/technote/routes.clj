@@ -7,7 +7,7 @@
             [hiccup.core :refer [html]]
             [hiccup.bootstrap.middleware :refer [wrap-bootstrap-resources]]
             [technote.views.default      :refer [default-page four-oh-4]]
-            [technote.views.workorder    :refer [new-workorder
+            [technote.views.workorder    :refer [workorder-new
                                                  workorder
                                                  workorder-add
                                                  list-workorders]]
@@ -19,18 +19,18 @@
 (defroutes app-routes
 
   ; to serve document root address
-  (GET "/" [] (list-workorders))
+  (GET "/" [] (list-workorders 0))
 
   ; login related pages
   (GET  "/login" [] (login))
   (POST "/login" [user password] (authenticate-user user password))
 
   ; workorder related pages
-  (GET "/workorder"                     [] (list-workorders))
-  (GET "/workorder/new"                 [] (new-workorder))
+  (GET "/workorder"                     [offset] (list-workorders offset))
+  (GET "/workorder/new"                 [] (workorder-new))
+  (POST "/workorder/new"                [& stuff] (workorder-new stuff))
   (GET ["/workorder/:id" :id #"\w+"]    [id] (workorder id))
   (POST ["/workorder/:id" :id #"\w+"]   [id & upd] (workorder id upd))
-  (POST "/workorder-add"                [& stuff] (workorder-add stuff))
 
   ; to serve static pages saved in resources/public directory
   (route/resources "/")

@@ -49,7 +49,7 @@
 (defmigration add-workorders-table
   (up [] (create
           (tbl :workorders
-            (text :content)
+            (text :problem)
             (refer-to :customers)
             )))
   (down [] (drop (table :workorders))))
@@ -63,5 +63,25 @@
             )))
   (down [] (drop (table :tech-workorders))))
 
+(defmigration add-customer-workorders-table
+  (up [] (create
+          (tbl :customer-workorders
+            (refer-to :customers)
+            (refer-to :workorders)
+            )))
+  (down [] (drop (table :customer-workorders))))
+
+(defmigration add-work-performed-table
+  (up [] (create
+          (tbl :work-performed
+            (text :work)
+            (refer-to :techs)
+            (refer-to :workorders)
+            (boolean :show-customer))))
+  (down [] (drop (table :work-performed))))
+
 ;; run migrations
 ; (binding [lobos.migration/*src-directory* "src/clj/"] (lobos.core/migrate))
+
+;; rollback migrations
+; (binding [lobos.migration/*src-directory* "src/clj/"] (lobos.core/rollback :all))
