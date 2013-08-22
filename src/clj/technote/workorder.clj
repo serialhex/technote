@@ -7,10 +7,11 @@
 
 (defn new-workorder [input]
   (let [data (first input)]
-    (let [cust-id
-          (cust/new-customer data)]
+    (prn input)
+    (let [cust
+          (cust/get-cust-id data)]
       (insert db/workorders
-        (values { :customer_id cust-id
+        (values { :customer_id (:customer-id cust)
                   :problem (:problems data)})))))
 
 
@@ -23,10 +24,14 @@
 
 
 (defn get-workorder [id]
-  (select db/workorders
-    (with db/work-performed)
-    (with db/customers)
-    (where {:id (Integer. id)})))
+  (prn "in tk/wo/gw, args: " id)
+  (first (select db/workorders
+          (with db/work-performed)
+          (with db/customers)
+          (where {:id (Integer. id)}))))
 
-(defn update-workorder [stuff]
-  (println stuff))
+(defn update-workorder [id stuff]
+  (prn "in tk/wo/uw got: " id ", " stuff)
+  (insert db/work-performed
+    (values {:workorder_id (Integer. id)
+             :work (:work-done stuff)})))

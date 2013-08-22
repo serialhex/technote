@@ -42,7 +42,7 @@
 
 (defentity workorders
   (entity-fields :problem)
-  (has-many work-performed)
+  (has-many work-performed {:fk :workorder_id})
   (belongs-to customers {:fk :customer_id}))
 
 (defentity work-performed

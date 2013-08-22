@@ -61,15 +61,16 @@
   "Gets a specific workorder"
   [id & upd]
   (if upd
-    (update-workorder id upd))
+    (update-workorder id (first upd)))
   (default-page
     (let [wo (get-workorder id)
           company (str (:company wo))
-          custname (str (:name wo))
+          custname (str (:cust-name wo))
           phone (:phone wo)
-          problems (:problems wo)
-          work-done (:work-done wo)]
-      [:table [:tr
+          problems (:problem wo)
+          work-done (:work-performed wo)]
+      [:div
+        [:table [:tr
         [:td
           [:div.panel
             (if (not-empty company)
@@ -92,20 +93,20 @@
                 [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]]]
 
         [:tr
-          [:td]
-          [:td
+          ; [:td]
+          [:td {:colspan 2}
             (if work-done
               (reverse
                 (map (fn [note]
                           [:div.work
-                            [:p "work done: " note]])
+                            [:p "work done: " (:work note)]])
                   work-done)))
                 ]]]
-    [:div wo])))
+        [:div [:p (str wo)]]])))
 
 (defn list-workorders
   "Lists available workorders."
-  [& {:keys [offset] :or {offset 0}}]
+  [offset]
   (prn "in tk/vi/lw " offset)
   (default-page
     [:div
