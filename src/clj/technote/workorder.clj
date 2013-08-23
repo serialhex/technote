@@ -19,7 +19,8 @@
 (defn get-stuff [num-off]
   (select db/workorders
     (with db/customers)
-    (limit 3)
+    (order :id :DESC)
+    (limit 10)
     (offset num-off)))
 
 

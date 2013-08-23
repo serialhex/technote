@@ -124,6 +124,6 @@
             [:br]]))
         (get-stuff (if offset (Integer. offset) 0)))]
       [:div
-        [:a {:href (str "/workorder?offset=" (+ 3 (if offset (Integer. offset) 0)))}
+        [:a {:href (str "/workorder?offset=" (+ 10 (if offset (Integer. offset) 0)))}
               "get next"]
         ]))
