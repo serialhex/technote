@@ -107,23 +107,27 @@
 (defn list-workorders
   "Lists available workorders."
   [offset]
-  (prn "in tk/vi/lw " offset)
-  (default-page
-    [:div
-      (map (fn [workord]
-        (let [{company  :company
-               custname :cust-name
-               number   :id}
-               workord]
-          [:div
-            (str "cust: " custname " "
-              (if (not-empty company)
-                (str "from " company " "))
-              "workorder number: " number " ")
-            [:a {:href (str "/workorder/" number)} "view"]
-            [:br]]))
-        (get-stuff (if offset (Integer. offset) 0)))]
+  (let [offset (if offset (Integer. offset) 0)]
+    (default-page
       [:div
-        [:a {:href (str "/workorder?offset=" (+ 10 (if offset (Integer. offset) 0)))}
+        (map (fn [workord]
+          (let [{company  :company
+                 custname :cust-name
+                 number   :id}
+                 workord]
+            [:div
+              (str "cust: " custname " "
+                (if (not-empty company)
+                  (str "from " company " "))
+                "workorder number: " number " ")
+              [:a {:href (str "/workorder/" number)} "view"]
+              [:br]]))
+          (get-stuff offset))]
+      [:div
+        (if (> offset 0)
+          [:a {:href (str "/workorder?offset=" (- offset 10))}
+              "get prev"])
+        " "
+        [:a {:href (str "/workorder?offset=" (+ 10 offset))}
               "get next"]
-        ]))
+        ])))
