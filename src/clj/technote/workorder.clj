@@ -4,6 +4,13 @@
             [technote.customer :as cust]
             [korma.core :refer :all]))
 
+(defrecord Workorder
+  [customer
+   work-done
+   ])
+
+(defrecord WorkDone
+  [stuff])
 
 (defn new-workorder [input]
   (let [data (first input)]

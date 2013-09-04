@@ -1,6 +1,7 @@
 (ns technote.views.workorder
   (:require [clojure.string :as string]
             [hiccup.core :refer [html]]
+            [hiccup.form :refer :all]
             [technote.views.default :refer [default-page]]
             [technote.workorder :refer [new-workorder
                                         get-stuff
@@ -25,30 +26,17 @@
 
     ; getting info to post
     (default-page
-      [:form {:action "/workorder/new"
-              :method "post"
-              :id     "new-workorder-form"}
-        [:fieldset
-          (map (fn [[info argz]]
-                  [:div
-                    [:label {:for info} (string/capitalize (string/replace info "-" " "))]
-                    [:input (merge {:type "text" :name info} argz)]])
-            { "company-name"  {}
-              "first-name"    {:required ""}
-              "last-name"     {:required ""}
-              "street"        {:required ""}
-              "city"          {:required ""}
-              "zip"           {:required ""}
-              "phone-number"  {:required ""}})
-          [:div
-            [:label {:for "problems"} "Problems - wonky css... :'("]
-              [:textarea#problems {:name "problems"
-                                   :rows 8
-                                   :cols 50
-                                   :required ""}]]
-          [:div
-            [:label {:for "submit"}]
-            [:input#submit {:type "submit" :value "Get 'er dunn!!"}]]]])
+      (form-to  [:post "/workorder/new"]
+                (map (fn [[text nme]]
+                      [:p text (text-field nme)])
+                  { "Company Name: "  "company-name"
+                    "First Name: "    "first-name"
+                    "Last Name: "     "last-name"})
+                [:p "Street: " (text-field "street")]
+                [:p "City: " (text-field "city") "Zip: " (text-field "zip")]
+                [:p "Phone Number: " (text-field "phone-number")]
+                [:p "Problems: " (text-area {:rows 8 :cols 50} "problems")]
+                (submit-button "Get 'er dunn!!")))
   ))
 
 ; refactoring...
