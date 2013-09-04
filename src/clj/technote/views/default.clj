@@ -1,5 +1,5 @@
 (ns technote.views.default
-  (:require [hiccup.page :refer [html5]]
+  (:require [hiccup.page :refer [html5 include-css]]
             [hiccup.def  :refer [defhtml]]
             [hiccup.core :refer [html]]))
 
@@ -8,11 +8,10 @@
     [:head
       [:meta {:charset "utf-8"}]
       [:title "Technote"]
-      [:link {:rel "stylesheet" :href "/css/normalize.css"}]
-      [:link {:rel "stylesheet" :href "/css/flat-ui.css"}]
-      ; [:link {:rel "stylesheet" :href "/css/styles.css"}]
-      [:link {:rel "stylesheet" :href "/css/technote.css"}]
-      ]
+      (include-css  "/css/normalize.css"
+                    "/css/flat-ui.css"
+                    ; "/css/styles.css"
+                    "/css/technote.css")]
     [:body
       [:ul#sidebar
         [:li [:a {:href "/login"} "login"]]
