@@ -11,7 +11,8 @@
                                                  workorder
                                                  workorder-add
                                                  list-workorders]]
-            [technote.views.login        :refer [login authenticate-user]]))
+            [technote.views.login        :refer [login authenticate-user]]
+            [technote.views.customer     :refer [list-customers]]))
 
 ;; defroutes macro defines a function that chains individual route
 ;; functions together. The request map is passed to each function in
@@ -31,6 +32,9 @@
   (POST "/workorder/new"                [& stuff] (workorder-new stuff))
   (GET ["/workorder/:id" :id #"\w+"]    [id] (workorder id))
   (POST ["/workorder/:id" :id #"\w+"]   [id & upd] (workorder id upd))
+
+  ; customer related pages
+  (GET "/customer" [] (list-customers))
 
   ; to serve static pages saved in resources/public directory
   (route/resources "/")

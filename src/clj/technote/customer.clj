@@ -76,6 +76,10 @@
                 (:current? a)))
       addresses)))
 
+(defn all-customers []
+  (select db/customers
+    (order :cust-name)))
+
 (defn lookup-customer [cname]
   "Finds customer, returns id."
   (let [cust (select db/customers

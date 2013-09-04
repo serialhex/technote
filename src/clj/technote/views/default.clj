@@ -16,7 +16,8 @@
               [:ul#sidebar
                 [:li [:a {:href "/login"} "login"]]
                 [:li [:a {:href "/workorder"} "workorder"]]
-                [:li [:a {:href "/workorder/new"} "new workorder"]]]
+                [:li [:a {:href "/workorder/new"} "new workorder"]]
+                [:li [:a {:href "/customer"} "customer"]]]
               [:div#main
                 (html body)]]
               [:script {}]]))
