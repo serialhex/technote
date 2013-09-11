@@ -6,7 +6,8 @@
             [technote.workorder :refer [new-workorder
                                         get-stuff
                                         get-workorder
-                                        update-workorder]]))
+                                        update-workorder]]
+            [technote.misc :refer [states do-md]]))
 
 (defn workorder-new
   "Sets up new workorder."
@@ -27,15 +28,39 @@
     ; getting info to post
     (default-page
       (form-to  [:post "/workorder/new"]
-                (map (fn [[text nme]]
+                #_(map (fn [[text nme]]
                       [:p text (text-field nme)])
                   { "Company Name: "  "company-name"
                     "First Name: "    "first-name"
                     "Last Name: "     "last-name"})
-                [:p "Street: " (text-field "street")]
-                [:p "City: " (text-field "city") "Zip: " (text-field "zip")]
-                [:p "Phone Number: " (text-field "phone-number")]
-                [:p "Problems: " (text-area {:rows 8 :cols 50} "problems")]
+                (label "company-name" "Company Name: ")
+                  (text-field "company-name")
+                  [:br]
+                (label "first-name" "First Name: ")
+                  (text-field "first-name")
+                  [:br]
+                (label "last-name" "Last Name: ")
+                  (text-field "last-name")
+                  [:br]
+                (label "street" "Street: ")
+                  (text-field "street")
+                  [:br]
+                (label "city" "City: ")
+                  (text-field "city")
+                  [:br]
+                (label "state " "State: ")
+                  (drop-down "state" states)
+                (label {:style "width: 65px;"}
+                    "zip" "Zip: ")
+                  (text-field {:style "width: 75px;"
+                    :maxlength 5} "zip")
+                  [:br]
+                (label "phone-number" "Phone Number: ")
+                  (text-field "phone-number")
+                  [:br]
+                (label "problems" "Problems: ")
+                  (text-area {:rows 8 :cols 50} "problems")
+                  [:br]
                 (submit-button "Get 'er dunn!!")))
   ))
 
@@ -86,11 +111,12 @@
             (if work-done
               (reverse
                 (map (fn [note]
-                          [:div.work
-                            [:p "work done: " (:work note)]])
+                          [:div.work "work done: "
+                            [:div.work-done
+                              (do-md (:work note))]])
                   work-done)))
                 ]]]
-        [:div [:p (str wo)]]])))
+        [:div {:hidden "true"} [:p (str wo)]]])))
 
 (defn list-workorders
   "Lists available workorders."

@@ -1,7 +1,9 @@
 (ns technote.views.default
   (:require [hiccup.page :refer [html5 include-css]]
             [hiccup.def  :refer [defhtml]]
-            [hiccup.core :refer [html]]))
+            [hiccup.core :refer [html]]
+            [hiccup.element :refer [unordered-list
+                                    link-to]]))
 
 (defhtml default-page [& body]
   [:html
@@ -13,11 +15,11 @@
                     ; "/css/styles.css"
                     "/css/technote.css")]
     [:body
-      [:ul#sidebar
-        [:li [:a {:href "/login"} "login"]]
-        [:li [:a {:href "/workorder"} "workorder"]]
-        [:li [:a {:href "/workorder/new"} "new workorder"]]
-        [:li [:a {:href "/customer"} "customer"]]]
+      (unordered-list {:id "sidebar"}
+        [(link-to "/login"          "Login")
+         (link-to "/workorder"      "Workorders")
+         (link-to "/workorder/new"  "New Workorder")
+         (link-to "/customer"       "Customers")])
       [:div#main body]]
       [:script {}]])
 

@@ -15,7 +15,8 @@
                  [korma "0.3.0-RC5"]
                  [org.postgresql/postgresql "9.2-1002-jdbc4"]
                  [lobos "1.0.0-beta1"]
-                 [hiccup-bootstrap "0.1.2"]]
+                 [hiccup-bootstrap "0.1.2"]
+                 [markdown-clj "0.9.31"]]
 
   :dev-dependencies []
 

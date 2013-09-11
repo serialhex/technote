@@ -6,11 +6,26 @@
 
 (defrecord Workorder
   [customer
+   problem
    work-done
-   ])
+   check-in]
+  Object
+  (toString [_] (str "Customer: " customer
+                    "  Problem: " problem
+                    "  Work Done: " work-done
+                    "  Check In: " (misc/format-time check-in))))
 
 (defrecord WorkDone
   [stuff])
+
+(defn work-done [wo]
+  "moo")
+
+(defn workorder-record [wo]
+  (Workorder. (str (cust/cust-record :customer_id))
+              (:problem wo)
+              (work-done 3)
+              (:created_on wo)))
 
 (defn new-workorder [input]
   (let [data (first input)]
@@ -21,7 +36,11 @@
         (values { :customer_id (:customer-id cust)
                   :problem (:problems data)})))))
 
-
+(defn find-workorders [info]
+  (->>  (select db/workorders
+          (with db/customers)
+          (where (= :customer_id (Integer. info))))
+        (map #(str (workorder-record %)))))
 
 (defn get-stuff [num-off]
   (select db/workorders

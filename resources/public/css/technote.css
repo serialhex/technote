@@ -22,6 +22,10 @@ html {
   left: 25px;
 }
 
+.work-done {
+  margin-left: 50px;
+}
+
 ul {
   list-style-type: circle;
 }
@@ -35,4 +39,14 @@ table, th, td {
 
 table {
   width: 100%;
+}
+
+input[type="text"] {
+  padding: 0px 0px;
+}
+
+label {
+    display: inline-block;
+    width:110px;
+    text-align: left;
 }
