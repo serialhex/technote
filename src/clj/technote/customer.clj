@@ -12,8 +12,9 @@
    last-name
    phone-numbers
    addresses
-   workorders
-   customer-id])
+   customer-id]
+  Object
+  (toString [_] (str first-name " " last-name)))
 
 (defrecord PhoneNumber
   [phone-number
@@ -30,21 +31,22 @@
    country
    current?])
 
+(defn cust-record [cust]
+  (Customer.  (:company-name cust)
+              (:first-name cust)
+              (:last-name cust)
+              (get-phone-numbers (:id cust))
+              (get-addresses (:id cust))
+              (:id cust)))
+
 (defn get-customer
   "Gets customer from database by id & returns record of customer"
   [id]
-  (println "getting customer" id)
   (let [cust (first ;; and only...
               (select db/customers
                 (where {:id id})))]
     (if cust
-      (Customer.  (:company-name cust)
-                  (:first-name cust)
-                  (:last-name cust)
-                  (get-phone-numbers id)
-                  (get-addresses id)
-                  "workorder"
-                  id)
+      (cust-record cust)
       (println "There is no customer with ID:" id))))
 
 (defn get-phone-numbers
@@ -77,8 +79,9 @@
       addresses)))
 
 (defn all-customers []
-  (select db/customers
-    (order :cust-name)))
+  (->>  (select db/customers
+          (order :cust-name))
+        (map #(cust-record %))))
 
 (defn lookup-customer [cname]
   "Finds customer, returns id."
