@@ -10,7 +10,7 @@
              :user "technote"
              :password "technote"}))
 
-(declare customers techs workorders phone-number address work-performed)
+(declare customers techs workorders phone-number address work-performed email computer)
 
 (defentity customers
   (entity-fields  :cust-name
@@ -21,7 +21,9 @@
                   :last-name)
   (has-many phone-number)
   (has-many address)
-  (has-many workorders))
+  (has-many workorders)
+  (has-many email)
+  (has-many computer))
 
 (defentity phone-number
   (entity-fields  :number
@@ -39,6 +41,13 @@
                   :country
                   :current?)
   (belongs-to customers))
+
+(defentity email
+  (belongs-to customers))
+
+(defentity computer
+  (belongs-to customers)
+  (belongs-to workorders))
 
 (defentity workorders
   (entity-fields :problem)

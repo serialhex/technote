@@ -4,7 +4,7 @@
             [korma.core :refer :all]))
 
 (declare  add-phone-number add-address new-customer
-          get-phone-numbers get-addresses )
+          get-phone-numbers get-addresses get-emails get-computers)
 
 (defrecord Customer
   [company-name
@@ -12,6 +12,8 @@
    last-name
    phone-numbers
    addresses
+   emails
+   computers
    customer-id]
   Object
   (toString [_] (str first-name " " last-name)))
@@ -31,12 +33,24 @@
    country
    current?])
 
+(defrecord Email
+  [email
+   password])
+
+(defrecord Computer
+  [model
+   description
+   password
+   workorder])
+
 (defn cust-record [cust]
   (Customer.  (:company-name cust)
               (:first-name cust)
               (:last-name cust)
               (get-phone-numbers (:id cust))
               (get-addresses (:id cust))
+              (get-emails (:id cust))
+              (get-computers (:id cust))
               (:id cust)))
 
 (defn get-customer
@@ -50,7 +64,7 @@
       (println "There is no customer with ID:" id))))
 
 (defn get-phone-numbers
-  "Gets a vector of phone numbers for customer"
+  "Gets a list of phone numbers for customer"
   [cust-id]
   (let [numbers (select db/phone-number
                   (order :created_on)
@@ -62,7 +76,7 @@
       numbers)))
 
 (defn get-addresses
-  "Gets a vector of addresses for customer"
+  "Gets a list of addresses for customer"
   [cust-id]
   (let [addresses (select db/address
                     (order :created_on)
@@ -77,6 +91,28 @@
                 (:country a)
                 (:current? a)))
       addresses)))
+
+(defn get-emails
+  "Gets a list of email addresses for customer"
+  [cust-id]
+  (let [email (select db/email
+                    (order :created_on)
+                    (where {:customer_id cust-id}))]
+  (map #((Email.  (:email %)
+                  (:password %)))
+    email)))
+
+(defn get-computers
+  "Gets a list of computers for current customer"
+  [cust-id]
+  (let [computer (select db/computer
+                    (order :created_on)
+                    (where {:customer_id cust-id}))]
+  (map #((Computer. (:model %)
+                    (:description %)
+                    (:password %)
+                    (:workorder %)))
+    computer)))
 
 (defn all-customers []
   (->>  (select db/customers

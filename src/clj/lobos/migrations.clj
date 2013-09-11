@@ -38,6 +38,24 @@
             (refer-to :customers))))
   (down [] (drop (table :address))))
 
+(defmigration add-emails-table
+  (up [] (create
+          (tbl :email
+            (text :email)
+            (text :password)
+            (refer-to :customers))))
+  (down [] (drop (table :email))))
+
+(defmigration add-computers-table
+  (up [] (create
+          (tbl :computer
+            (text :model)
+            (text :description)
+            (text :password)
+            (refer-to :customers)
+            (refer-to :workorders))))
+  (down [] (drop (table :computer))))
+
 (defmigration add-techs-table
   (up [] (create
           (tbl :techs
