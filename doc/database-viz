@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# makes images out of my database
+postgresql_autodoc -d technote-dev -t dot
+dot -Tpng -Gdpi=300 -o technote.png technote-dev.dot
