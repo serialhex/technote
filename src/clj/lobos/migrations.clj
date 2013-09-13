@@ -15,6 +15,14 @@
             (varchar :last-name 20))))
   (down [] (drop (table :customers))))
 
+(defmigration add-workorders-table
+  (up [] (create
+          (tbl :workorders
+            (text :problem)
+            (refer-to :customers)
+            )))
+  (down [] (drop (table :workorders))))
+
 (defmigration add-phone-number-table
   (up [] (create
           (tbl :phone-number
@@ -63,14 +71,6 @@
             (text :misc)
             )))
   (down [] (drop (table :techs))))
-
-(defmigration add-workorders-table
-  (up [] (create
-          (tbl :workorders
-            (text :problem)
-            (refer-to :customers)
-            )))
-  (down [] (drop (table :workorders))))
 
 ; a many-to-many relationship between technicians and workorders
 (defmigration add-technician-workorders-table

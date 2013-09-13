@@ -43,9 +43,14 @@
   (belongs-to customers))
 
 (defentity email
+  (entity-fields  :email
+                  :password)
   (belongs-to customers))
 
 (defentity computer
+  (entity-fields  :model
+                  :description
+                  :password)
   (belongs-to customers)
   (belongs-to workorders))
 

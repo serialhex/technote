@@ -11,3 +11,5 @@ pom.xml
 .lein-deps-sum
 .lein-failures
 .lein-plugins
+/doc/technote-dev.dot
+/doc/technote.png

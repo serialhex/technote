@@ -172,3 +172,7 @@
              :zip (:zip address)
              :current? true
              :customer_id customer-id})))
+
+#_(defn add-email [cust-id email]
+  (insert db/email
+    (values {})))

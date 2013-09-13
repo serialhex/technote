@@ -28,11 +28,7 @@
     ; getting info to post
     (default-page
       (form-to  [:post "/workorder/new"]
-                #_(map (fn [[text nme]]
-                      [:p text (text-field nme)])
-                  { "Company Name: "  "company-name"
-                    "First Name: "    "first-name"
-                    "Last Name: "     "last-name"})
+                ; Customer info
                 (label "company-name" "Company Name: ")
                   (text-field "company-name")
                   [:br]
@@ -49,7 +45,7 @@
                   (text-field "city")
                   [:br]
                 (label "state " "State: ")
-                  (drop-down "state" states)
+                  (drop-down "state" states 'FL)
                 (label {:style "width: 65px;"}
                     "zip" "Zip: ")
                   (text-field {:style "width: 75px;"
@@ -58,6 +54,27 @@
                 (label "phone-number" "Phone Number: ")
                   (text-field "phone-number")
                   [:br]
+
+                ; Email info
+                (label "email" "Email: ")
+                  (text-field "email")
+                  [:br]
+                (label "email-pass" "Email Password **DANGER!!!!**: ")
+                  (text-field "email-pass")
+                  [:br]
+
+                ; Computer info
+                (label "computer-model" "Computer Model: ")
+                  (text-field "computer-model")
+                  [:br]
+                (label "computer-password" "Computer Password **DANGER!!!!**: ")
+                  (text-field "computer-password")
+                  [:br]
+                (label "computer-description" "Computer description: ")
+                  (text-area "computer-description")
+                  [:br]
+
+                ; Problems
                 (label "problems" "Problems: ")
                   (text-area {:rows 8 :cols 50} "problems")
                   [:br]
