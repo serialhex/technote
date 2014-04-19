@@ -70,3 +70,7 @@
   (many-to-many workorders :tech-workorders
     {:lfk :tech_id
      :rfk :workorder_id}))
+
+(defmacro fuzzy-search [db srch]
+  `(select db
+    (where* ~(str "\"" (name (first srch)) "\"" " % " "'" (last srch) "'"))))

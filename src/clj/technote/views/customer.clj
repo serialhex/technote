@@ -19,4 +19,10 @@
     (default-page
       (str (get-customer id))
       [:br]
-      (unordered-list (find-workorders id)))))
+      (->>  (find-workorders id)
+            (map #(link-to (str "/workorder/" (:id (:workorder %))) (:info %)))
+            (unordered-list)))))
+
+
+;; technote.database=> (exec-raw ["SELECT \"cust-name\" FROM customers WHERE \"cust-name\" % 'bob';"] :results)
+;; [{:cust-name "Builder, Bob"}]

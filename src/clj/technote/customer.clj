@@ -173,6 +173,8 @@
              :current? true
              :customer_id customer-id})))
 
-#_(defn add-email [cust-id email]
+#_(defn add-email [cust-id email password]
   (insert db/email
-    (values {})))
+    (values {:customer_id cust-id
+             :email email
+             :password password})))

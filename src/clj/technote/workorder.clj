@@ -40,7 +40,7 @@
   (->>  (select db/workorders
           (with db/customers)
           (where (= :customer_id (Integer. info))))
-        (map #(str (workorder-record %)))))
+        (map #(hash-map :info (str (workorder-record %)), :workorder %))))
 
 (defn get-stuff [num-off]
   (select db/workorders
