@@ -1,13 +1,5 @@
-# technote
+# Technote - Workorder & Customer management system
 
-A Clojure library designed to ... well, that part is up to you.
+This little(-ish) app is (initially) designed for a computer store to manage work done & other notes pertaining to customers computers.
 
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
+As this is an early version of my Technote app, and not yet finished, there are many more features to be implemented and it isn't very pretty.  This is the biggest single application that I have worked on to date (Nov 2014) and thus far I am the sole coder.
